@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="estudiantes">
+  <ClassDiagramComponents>
+    <Class name="Estudiantes" package="" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Controlador" package="com.ciclo2udea.estudiantes.controlador" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="capturarOpcion" returnType="int" visibility="public" isStatic="true"/>
+        <Method name="ingresar" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="buscar" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="modificar" returnType="void" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="lector" package="com.ciclo2udea.estudiantes.controlador" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="input" type="Scanner" visibility="package" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Modelo" package="com.ciclo2udea.estudiantes.modelo" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="nombres" type="ArrayList&lt;String&gt;" visibility="public" isStatic="true"/>
+        <Field name="apellidos" type="ArrayList&lt;String&gt;" visibility="public" isStatic="true"/>
+        <Field name="nacimiento" type="ArrayList&lt;String&gt;" visibility="public" isStatic="true"/>
+        <Field name="correo" type="ArrayList&lt;String&gt;" visibility="public" isStatic="true"/>
+        <Field name="celular" type="ArrayList&lt;Long&gt;" visibility="public" isStatic="true"/>
+        <Field name="programa" type="ArrayList&lt;String&gt;" visibility="public" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Vista" package="com.ciclo2udea.estudiantes.vista" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="imprimirMenu" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="mostrar" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="indice"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Main" package="com.ciclo2udea.estudiantes.main" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>

@@ -1,10 +1,13 @@
 
 package com.ciclo2udea.estudiantes.main;
 
+import com.ciclo2udea.estudiantes.modelo.Modelo;
+
 public class Main {
     
     public static void main(String[] args){
-    //Aqui va lo que se ejecuta de primero
+    
+       Modelo.main(args);
     }
     
 }

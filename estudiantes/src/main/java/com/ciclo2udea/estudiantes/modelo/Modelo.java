@@ -5,7 +5,7 @@ import com.ciclo2udea.estudiantes.vista.Vista;
 
 import java.util.ArrayList;
 
-public class Modelo {
+public class Modelo { //Creación de una clase
     
     public static ArrayList<String> nombres = new ArrayList<String>();
     public static ArrayList<String> apellidos = new ArrayList<String>();
@@ -35,11 +35,11 @@ while (true){
     }
     else if (valor==4){
         System.out.println("Eliminar estudiante");
-        Controlador.eliminar();
+        //Controlador.eliminar();
     }
     else if (valor==5){
         System.out.println("Ver listado de Estudiantes");
-        Vista.verDirectorio();
+        //Vista.verDirectorio();
         
     }
     else if (valor==6){
