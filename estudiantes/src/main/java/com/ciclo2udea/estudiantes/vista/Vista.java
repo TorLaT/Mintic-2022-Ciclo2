@@ -19,13 +19,13 @@ public class Vista {
     
     public static void mostrar(int indice){
     
-        System.out.println("Información del Estudiante: ");
+        System.out.println("\nINFORMACIÓN DEL ESTUDIANTE: ");
         System.out.println("Nombres: "+Modelo.nombres.get(indice));
         System.out.println("Apellidos: "+Modelo.apellidos.get(indice));
         System.out.println("Fecha de nacimiento: "+Modelo.nacimiento.get(indice));
         System.out.println("Correo Electrónico: "+Modelo.correo.get(indice));
         System.out.println("Número Celular: "+Modelo.celular.get(indice));
-        System.out.println("Programa de Interés: "+Modelo.programa.get(indice));
+        System.out.println("Programa de Interés: "+Modelo.programa.get(indice)+"\n");
     
     }
     

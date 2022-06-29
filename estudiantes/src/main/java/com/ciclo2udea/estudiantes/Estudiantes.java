@@ -1,9 +1,7 @@
-
-package com.ciclo2udea.estudiantes.main;
-
+package com.ciclo2udea.estudiantes;
 import com.ciclo2udea.estudiantes.modelo.Modelo;
 
-public class Main {
+public class Estudiantes {
     
     public static void main(String[] args){
     

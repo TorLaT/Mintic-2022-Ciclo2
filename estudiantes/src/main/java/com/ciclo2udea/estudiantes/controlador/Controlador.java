@@ -33,7 +33,7 @@ public class Controlador {
         Modelo.apellidos.add(Apellidos);
         
         //Guardamos la fecha de nacimiento en el array nacimiento creado en la clase modelo
-        System.out.println("Ingrese por favor su fecha de nacimiento: \n");
+        System.out.println("Ingrese por favor su fecha de nacimiento: (DD-MM-AAAA)\n");
         String Nacimiento=lector.input.nextLine();
         Modelo.nacimiento.add(Nacimiento);
         
@@ -54,10 +54,11 @@ public class Controlador {
         
         //Guardamos el programa en el array programa creado en la clase modelo
         System.out.println("Ingrese por favor el programa de su interes: \n");
+        lector.input.nextLine(); //Despues del NextLong, fue necesario aplicar un Nextline previo a la verdadera acción
         String Programa=lector.input.nextLine();
         Modelo.programa.add(Programa);
         
-        System.out.println("Usuario registrado correctamente \n");
+        System.out.println("\nUsuario registrado correctamente \n");
         
     }
     
@@ -93,10 +94,11 @@ public class Controlador {
             System.out.println("Por favor ingrese la fecha de nacimiento correctamente: (DD-MM-AAAA)");
             String Nacimiento=lector.input.nextLine();
             Modelo.nacimiento.set(indice, Nacimiento);
-            System.out.println("Por favor ingrese el numero celuar correctamente: ");
+            System.out.println("Por favor ingrese el numero celular correctamente: ");
             Long Celular=lector.input.nextLong();
             Modelo.celular.set(indice, Celular);
             System.out.println("Por favor ingrese el programa de interes correctamente: ");
+            lector.input.nextLine();
             String Programa=lector.input.nextLine();
             Modelo.programa.set(indice, Programa);
             System.out.println("\n Estudiante modificado correctamente. \n");
