@@ -12,9 +12,11 @@ public class Controlador {
         while (opcion < 1 || opcion > 6) {  //Controlamos que el numero este dentro del rango
             System.out.println("Opcion: \n");
             try {
-                opcion = lector.input.nextInt();  //Controlando que el usuario si ingrese un numero
+                opcion = lector.input.nextInt(); 
+                lector.input.nextLine();//Controlando que el usuario si ingrese un numero
             } catch (InputMismatchException exception) {
                 opcion = lector.input.nextInt();
+                lector.input.nextLine();
             }
         }
         return opcion;
@@ -23,7 +25,7 @@ public class Controlador {
     public static void ingresar(){
         //Guardamos los nombres en el array Nombres creado en la clase modelo
         System.out.println("Ingrese por favor los nombre(s): \n");
-        lector.input.nextLine();
+        
         String Nombres=lector.input.nextLine();
         Modelo.nombres.add(Nombres);
         
@@ -46,6 +48,7 @@ public class Controlador {
         Long Celular;
         System.out.println("Ingrese su numero celular (si no tiene ingrese el numero 0): \n");
         try { Celular=lector.input.nextLong();
+        lector.input.nextLine(); //Completamos el salto de linea que nextLong esperaba
         }
         catch(InputMismatchException exception){
             Celular= (long) 0;
@@ -54,7 +57,6 @@ public class Controlador {
         
         //Guardamos el programa en el array programa creado en la clase modelo
         System.out.println("Ingrese por favor el programa de su interes: \n");
-        lector.input.nextLine(); //Despues del NextLong, fue necesario aplicar un Nextline previo a la verdadera acción
         String Programa=lector.input.nextLine();
         Modelo.programa.add(Programa);
         
@@ -64,8 +66,6 @@ public class Controlador {
     
     public static void buscar(){
         System.out.println("Ingrese por favor el correo: ");
-        
-        lector.input.nextLine();
 
         String Correo=lector.input.nextLine();
         int indice=Modelo.correo.indexOf(Correo);
@@ -79,8 +79,6 @@ public class Controlador {
     
      public static void modificar(){
         System.out.println("Ingrese por favor el correo: ");
-        
-                lector.input.nextLine();
 
         String Correo=lector.input.nextLine();
         int indice=Modelo.correo.indexOf(Correo);
@@ -96,9 +94,9 @@ public class Controlador {
             Modelo.nacimiento.set(indice, Nacimiento);
             System.out.println("Por favor ingrese el numero celular correctamente: ");
             Long Celular=lector.input.nextLong();
+            lector.input.nextLine();
             Modelo.celular.set(indice, Celular);
             System.out.println("Por favor ingrese el programa de interes correctamente: ");
-            lector.input.nextLine();
             String Programa=lector.input.nextLine();
             Modelo.programa.set(indice, Programa);
             System.out.println("\n Estudiante modificado correctamente. \n");
@@ -113,3 +111,7 @@ class lector {
 
     static Scanner input = new Scanner(System.in);
 }
+
+
+
+//Next cuando se alimenta de numeros asume que recibe contenido numeroValor+"\n"
