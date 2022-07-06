@@ -14,4 +14,15 @@ public class BaseDeDatos {
         System.out.println("Estudiante guardado en la lista");
     }
     
+    public modelo buscarEstudiante(String id){
+    modelo result= null; //Por defecto
+    for (int i=0; i<this.lstEstudiantes.size();i++){
+        if(this.lstEstudiantes.get(i).getId().equals(id)){
+            System.out.println("Estudiante encontrado");
+            result=this.lstEstudiantes.get(i);
+        }
+    }
+    return result;
+    }
+    
 }
