@@ -2,7 +2,8 @@ package modelo;
 
 import java.io.Serializable;
 
-public class modelo implements Serializable {
+public class modelo implements Serializable { //Clase modelo
+    //Atributos principales
     private String id;
     private String nombre;
     private String apellido;
@@ -10,6 +11,7 @@ public class modelo implements Serializable {
     private String correo;
     private String programa;   
 
+    //Constructor
     public modelo(String id, String nombre, String apellido, String telefono, String correo, String programa) {
         this.id = id;
         this.nombre = nombre;
