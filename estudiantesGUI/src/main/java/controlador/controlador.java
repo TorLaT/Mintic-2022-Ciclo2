@@ -28,6 +28,8 @@ public class controlador implements ActionListener {
         ingresar.getBtn_guardar().addActionListener(this);
         ingresar.getBtn_cancelar().addActionListener(this);
         buscar.getBtn_buscar().addActionListener(this);
+        buscar.getBtn_cancelar().addActionListener(this);
+        
     }
     
     public void iniciar() {

@@ -10,6 +10,7 @@ public class BaseDeDatos {
     }
     
     public void guardarEstudiante(modelo estudiante){  //Metodo recibe modelos
+    
     this.lstEstudiantes.add(estudiante); //guarde los modelos en la lista
         System.out.println("Estudiante guardado en la lista");
     }
@@ -24,5 +25,7 @@ public class BaseDeDatos {
     }
     return result;
     }
+        
+
     
 }
