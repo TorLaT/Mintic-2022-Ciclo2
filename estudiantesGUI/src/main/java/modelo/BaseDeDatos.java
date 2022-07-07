@@ -25,6 +25,10 @@ public class BaseDeDatos {
     }
     return result;
     }
+    
+    public void modificarEst(String id, modelo est){
+    
+    }
         
 
     
