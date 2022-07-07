@@ -15,6 +15,7 @@ public class controlador implements ActionListener {
     vista1 menu;
     vista2 ingresar;
     vista3 buscar;
+    
     BaseDeDatos bd;
     
     public controlador() {  //constructor
