@@ -2,13 +2,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.BaseDeDatos;
 import modelo.modelo;
 import vista.vista1;
 import vista.vista2;
 import vista.vista3;
 import vista.vista4;
+import vista.vista5;
 
 public class controlador implements ActionListener {
     //Atributos de la clase
@@ -17,6 +20,7 @@ public class controlador implements ActionListener {
     vista2 ingresar;
     vista3 buscar;
     vista4 modificar;
+    vista5 lista;
     BaseDeDatos bd;
     
     public controlador() {  //constructor
@@ -25,16 +29,21 @@ public class controlador implements ActionListener {
         this.bd=new BaseDeDatos(); //Nuevo objeto de tipo base de datos
         this.buscar=new vista3();// Nuevo objeto de tipo vista3, aqui buscaremos al estudiante
         this.modificar=new vista4();//Nuevo objeto de la vista4, aqui vamos a modiifcar
+        this.lista= new vista5();//Nuevo objeto de la vista5 donde veremos todo el directorio
         menu.getBtn_ingresar().addActionListener(this);
         menu.getBtn_salir().addActionListener(this);
         menu.getBtn_buscar().addActionListener(this);
         menu.getBtn_modificar().addActionListener(this);
+        menu.getBtn_eliminar().addActionListener(this);
+        menu.getBtn_listar().addActionListener(this);
         ingresar.getBtn_guardar().addActionListener(this);
         ingresar.getBtn_cancelar().addActionListener(this);
         buscar.getBtn_buscar().addActionListener(this);
         buscar.getBtn_cancelar().addActionListener(this);
         modificar.getBtn_buscar().addActionListener(this);
         modificar.getBtn_modificar().addActionListener(this);
+        modificar.getBtn_cancelar().addActionListener(this);
+        lista.getAtras().addActionListener(this);
         
     }
     
@@ -58,6 +67,18 @@ public class controlador implements ActionListener {
         if (e.getSource()==menu.getBtn_modificar()){
             modificar.setVisible(true);
             menu.dispose();
+        }
+        
+        if(e.getSource()==menu.getBtn_eliminar()){
+        String idElim=JOptionPane.showInputDialog(menu, "Ingrese el ID del registro a Eliminar", "Eliminar Registro", 2);
+        eliminar(idElim);
+        }
+        
+        if (e.getSource()==menu.getBtn_listar()){
+            lista.setVisible(true);
+            listar();
+            menu.dispose();
+            
         }
         
         if (e.getSource()==menu.getBtn_salir()){
@@ -84,11 +105,12 @@ public class controlador implements ActionListener {
             modificar();
         }
         
-        //Aqui los botones de eliminar
-        //Aqui los botones de lista
         //Aqui los botones en comun de todas las vistas
-        if (e.getSource()==ingresar.getBtn_cancelar()){
+        if (e.getSource()==ingresar.getBtn_cancelar() || e.getSource()==buscar.getBtn_cancelar() || e.getSource()==modificar.getBtn_cancelar() || e.getSource()==lista.getAtras()){
             ingresar.dispose();
+            buscar.dispose();
+            modificar.dispose();
+            lista.dispose();
             menu.setVisible(true);
         }
     }
@@ -108,7 +130,7 @@ public class controlador implements ActionListener {
     
     
     public void buscar(){
-        ingresar.getTxt_nombre().setText(null);
+        buscar.getTxt_nombre().setText(null); // Ejemplo
         String id=buscar.getTxt_cedula().getText();
         modelo resultado=bd.buscarEstudiante(id);
         buscar.getTxt_nombre().setText(resultado.getNombre());
@@ -118,7 +140,7 @@ public class controlador implements ActionListener {
         buscar.getTxt_programa().setText(resultado.getPrograma());
     }
     
-    public void mod_buscar(){
+    public void mod_buscar(){ ///If y un Else hint: if result==null
         String id=modificar.getTxt_cedula().getText();
         modelo resultado=bd.buscarEstudiante(id);
         modificar.getTxt_nombre().setText(resultado.getNombre());
@@ -141,8 +163,39 @@ public class controlador implements ActionListener {
         else{
         modelo newEst= new modelo(id, nombre, apellido, telefono, correo,programa);
         bd.modificarEst(id, newEst);
+        JOptionPane.showMessageDialog(modificar, "Estudiante modificado correctamente", "All OK!", 0);
         }
         ingresar.getTxt_nombre().setText(null);  //Ejemplo
+    }
+    
+    public void eliminar(String id){
+        modelo estudiante=bd.buscarEstudiante(id);
+        if (estudiante!=null){
+            bd.eliminar(id);
+            JOptionPane.showMessageDialog(menu, "Registro Eliminado correctamente", "All OK!", 0);
+        }        
+   
+    }
+    
+    public void listar(){
+        ArrayList<modelo> Estudiantes=bd.getLstEstudiantes(); //copia de la lista que hay en la base de datos
+        ArrayList<Object[]> list = new ArrayList(); //Lista de apoyo
+        for (int i=0; i<Estudiantes.size();i++){
+            list.add(new Object[]{
+                                Estudiantes.get(i).getId(),
+                                Estudiantes.get(i).getNombre(),
+                                Estudiantes.get(i).getApellido(),
+                                Estudiantes.get(i).getCorreo(),
+                                Estudiantes.get(i).getTelefono(),
+                                Estudiantes.get(i).getPrograma(),
+        
+        });
+        DefaultTableModel tablaModelo=new DefaultTableModel(list.toArray(new Object[][]{}), //Tabla modelo como casa modelo
+                                new String[]{"ID","Nombre","Apellido","Correo","Telefono","Programa"});  
+        
+        lista.getjTable1().setModel(tablaModelo); //Seteamos la tabla modelo en el JTable de la vista lista
+        
+        }
     }
     
 }

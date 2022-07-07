@@ -27,7 +27,37 @@ public class BaseDeDatos {
     }
     
     public void modificarEst(String id, modelo est){
+        for (int i=0; i<this.lstEstudiantes.size();i++){
+            if(this.lstEstudiantes.get(i).getId().equals(id)){
+                this.lstEstudiantes.get(i).setNombre(est.getNombre());
+                this.lstEstudiantes.get(i).setApellido(est.getApellido());
+                this.lstEstudiantes.get(i).setCorreo(est.getCorreo());
+                this.lstEstudiantes.get(i).setTelefono(est.getTelefono());
+                this.lstEstudiantes.get(i).setPrograma(est.getPrograma());
+            }
+        }
+    }
     
+    public void eliminar(String id){
+        for (int i=0; i<this.lstEstudiantes.size();i++){
+            if(this.lstEstudiantes.get(i).getId().equals(id)){
+                    this.lstEstudiantes.remove(i);
+            }        
+        }
+    
+    }
+
+    @Override
+    public String toString() {
+        return "BaseDeDatos{" + "lstEstudiantes=" + lstEstudiantes + '}';
+    }
+
+    public ArrayList<modelo> getLstEstudiantes() {
+        return lstEstudiantes;
+    }
+
+    public void setLstEstudiantes(ArrayList<modelo> lstEstudiantes) {
+        this.lstEstudiantes = lstEstudiantes;
     }
         
 
