@@ -196,6 +196,6 @@ public class controlador implements ActionListener {
         lista.getjTable1().setModel(tablaModelo); //Seteamos la tabla modelo en el JTable de la vista lista
         
         }
-    }
+    } 
     
 }
