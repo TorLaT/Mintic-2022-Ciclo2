@@ -59,7 +59,7 @@ public class BaseDeDatos {
     public void setLstEstudiantes(ArrayList<modelo> lstEstudiantes) {
         this.lstEstudiantes = lstEstudiantes;
     }
-        
+         
 
     
 }
