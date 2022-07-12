@@ -2,7 +2,10 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.BaseDeDatos;
@@ -47,7 +50,8 @@ public class controlador implements ActionListener {
         
     }
     
-    public void iniciar() {
+    public void iniciar() throws IOException {
+        bd.recuperarArchivo();
         menu.setVisible(true);
     }
     
@@ -82,7 +86,12 @@ public class controlador implements ActionListener {
         }
         
         if (e.getSource()==menu.getBtn_salir()){
-            System.exit(0);
+            try {
+                bd.guardarArchivo();
+                System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         //Aqui los botones de Vista_ingresar
