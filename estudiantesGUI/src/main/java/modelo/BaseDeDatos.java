@@ -5,8 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import org.supercsv.io.ICsvBeanWriter;
 
 public class BaseDeDatos {
 
@@ -54,46 +56,51 @@ public class BaseDeDatos {
 
     }
 
+    
+    //Trabajando con un DAT
     public void guardarArchivo() throws IOException {
-        FileOutputStream archivo = null;
-        ObjectOutputStream salida = null;
         try {
-            archivo = new FileOutputStream("src/main/estudiantes.dat");  //Crear un archivo externo
-            salida = new ObjectOutputStream(archivo);  //Crear un lector de objetos que empalmara informacion con archivo
-            for (int i = 0; i < this.lstEstudiantes.size(); i++) {  //alimentamos al lector de objetos con nuestra lista estudiantes
+            FileOutputStream archivo = new FileOutputStream("src/main/estudiantes.dat");  //Crear un archivo externo
+            ObjectOutputStream salida = new ObjectOutputStream(archivo);  //Crear un lector de objetos que empalmara informacion con archivo
+            salida.writeObject(this.lstEstudiantes);
+            salida.close();
+            archivo.close();
+            
+            /*for (int i = 0; i < this.lstEstudiantes.size(); i++) {  //alimentamos al lector de objetos con nuestra lista estudiantes
                 modelo est = this.lstEstudiantes.get(i);
-                salida.writeObject(est);  //escribimos los objetos en salida
-            }
+                salida.writeObject(est); } */ //escribimos los objetos en salida
+            
         } catch (FileNotFoundException e) {
             System.out.println("No se pudo crear o encontrar el archivo");
         } catch (IOException e) {
             System.out.println("Hubo un error en el sistema");
-        } finally {
-            try {
-                if (archivo != null) {
-                    archivo.close();
-                }
-                if (salida != null) {
-                    salida.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Hubo un error en el sistema");
-            }
-
-        }
-
+            e.printStackTrace(); //Muestre los errores
+        } 
 }
     
-    public void recuperarArchivo() throws FileNotFoundException, IOException{
-        FileInputStream archivo=new FileInputStream("src/main/estudiantes.dat");
-        DataInputStream input = new DataInputStream(archivo);
-        while (input.available()>0){  //Ejemplo de prueba
-            int x= input.readInt();
-            System.out.println(x);
+    public void recuperarArchivo() throws ClassNotFoundException {
+        try{
+            FileInputStream archivo= new FileInputStream("src/main/estudiantes.dat");
+            ObjectInputStream entrada= new ObjectInputStream(archivo);
+            this.lstEstudiantes= (ArrayList) entrada.readObject();
+            archivo.close();
+            entrada.close();            
+        }catch (FileNotFoundException e) {
+            System.out.println("No se pudo crear o encontrar el archivo");
+        } catch (IOException e) {
+            System.out.println("Hubo un error en el sistema");
+        } catch (ClassCastException e){ //En caso de que el archivo no coincida con el formato que el metodo espera
+            System.out.println("El tipo de clase no corresponde");
         }
-        input.close();
-    
     }
+    
+    
+    //Trabajando con CSV
+    public void guardarCSV(){
+        String csvFileName="archivoCSV.csv";
+        ICsvBeanWriter beanWriter= null;
+    }
+    
 
 @Override
 public String toString() {
