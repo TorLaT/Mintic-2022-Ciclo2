@@ -4,11 +4,16 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import org.supercsv.cellprocessor.constraint.NotNull;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 public class BaseDeDatos {
 
@@ -99,6 +104,36 @@ public class BaseDeDatos {
     public void guardarCSV(){
         String csvFileName="archivoCSV.csv";
         ICsvBeanWriter beanWriter= null;
+        CellProcessor[] procesador = new CellProcessor[] {  //Diseñamos las celdas de nuestro csv
+            new NotNull(), //ID
+            new NotNull(), //Nombre
+            new NotNull(), //Apellido
+            new NotNull(), //Telefono
+            new NotNull(), //Correo
+            new NotNull(), //Programa
+        };
+        
+        try{
+            beanWriter= new CsvBeanWriter( new FileWriter(csvFileName),CsvPreference.STANDARD_PREFERENCE); //Crear el archivo csv con preferencias estandar
+            String[] header ={"ID","Nombre","Apellido","Telefono","Correo","Programa"}; //Diseñar el encabezado
+            beanWriter.writeHeader(header);  //forzar la escritura del encabezado
+            
+            for (modelo estudiantes : this.lstEstudiantes){ //Recorrer cada estudiante de la lista estudiantes
+            beanWriter.write(estudiantes, header, procesador);  //Forzar la escritura de cada estudiante segun las celdas diseñadas
+            }
+            System.out.println("Archivo Creado");  //banderita "OK"
+        }
+        catch (IOException e) {
+            System.err.println("Error");
+        }finally{
+        if (beanWriter!=null){
+            try{
+            beanWriter.close(); //Que cierra el archivo despues de grabar
+            }catch(IOException ex){
+                System.err.println("error");                
+            }
+          }
+        }        
     }
     
 

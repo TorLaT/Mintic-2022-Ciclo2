@@ -52,7 +52,7 @@ public class controlador implements ActionListener {
     }
 
     public void iniciar() throws ClassNotFoundException {
-            bd.recuperarArchivo();
+        bd.recuperarArchivo();
 
         menu.setVisible(true);
     }
@@ -90,6 +90,7 @@ public class controlador implements ActionListener {
         if (e.getSource() == menu.getBtn_salir()) {
             try {
                 bd.guardarArchivo();
+                bd.guardarCSV();
             } catch (IOException ex) {
                 Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
             }
