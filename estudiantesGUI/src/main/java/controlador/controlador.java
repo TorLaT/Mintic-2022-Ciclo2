@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -52,7 +53,12 @@ public class controlador implements ActionListener {
     }
 
     public void iniciar() throws ClassNotFoundException {
-        bd.recuperarArchivo();
+        try {
+            //bd.recuperarArchivo();  //recuperando el dat
+            bd.leerCSV();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         menu.setVisible(true);
     }
@@ -88,12 +94,8 @@ public class controlador implements ActionListener {
         }
 
         if (e.getSource() == menu.getBtn_salir()) {
-            try {
-                bd.guardarArchivo();
-                bd.guardarCSV();
-            } catch (IOException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //bd.guardarArchivo(); //Guarda el archivo dat
+            bd.guardarCSV();// Guarda el csv
             System.exit(0);
         }
 

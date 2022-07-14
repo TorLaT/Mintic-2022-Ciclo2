@@ -1,9 +1,11 @@
 package modelo;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -134,6 +136,30 @@ public class BaseDeDatos {
             }
           }
         }        
+    }
+    
+    public void leerCSV() throws FileNotFoundException{
+    String line1=null; //ignorar el titulo
+    String splitBy=","; //Delimitador es una coma
+    try{
+        BufferedReader br = new BufferedReader(new FileReader("archivoCSV.csv")); //guardamos el archivo en un bufferedreader
+        br.readLine();
+        while ((line1=br.readLine()) !=null){
+            String[] estudiante=line1.split(splitBy);
+            String ID=estudiante[0];
+            String nombre=estudiante[1];
+            String apellido=estudiante[2];
+            String telefono=estudiante[3];
+            String correo=estudiante[4];
+            String programa=estudiante[5];
+            modelo student= new modelo(ID, nombre, apellido, telefono, correo,programa);
+            this.lstEstudiantes.add(student);
+        }
+    }catch (IOException e){
+        System.out.println("No se logro");
+        e.printStackTrace();
+    }
+    
     }
     
 
