@@ -2,11 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.BaseDeDatos;
@@ -87,7 +83,8 @@ public class controlador implements ActionListener {
         }
 
         if (e.getSource() == menu.getBtn_salir()) {
-
+            //Guarda la informaciòn en archivo csv
+            bd.exportarCSV();
             System.exit(0);
         }
 

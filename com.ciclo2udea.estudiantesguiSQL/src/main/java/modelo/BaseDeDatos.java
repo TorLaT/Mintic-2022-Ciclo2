@@ -1,26 +1,14 @@
 package modelo;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import org.supercsv.cellprocessor.constraint.NotNull;
-import org.supercsv.cellprocessor.ift.CellProcessor;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
 
 public class BaseDeDatos {
 
@@ -139,6 +127,50 @@ public class BaseDeDatos {
             e.printStackTrace();
         } 
         this.lstEstudiantes=temporal;
+    
+    }
+    
+    public void exportarCSV(){
+    String csvFilePath="infoestudiantes.csv";
+       try ( Connection conn = DriverManager.getConnection(URL, USER, CLAVE);  
+                Statement stmt = conn.createStatement();) {
+            //Eliminación en la base de datos
+            String sql = "SELECT * FROM estudiante";
+            ResultSet resultado=stmt.executeQuery(sql);
+            BufferedWriter lapiz= new BufferedWriter(new FileWriter(csvFilePath));
+            
+            //Escribir una linea que corresponda al header del archivo csv
+            lapiz.write("Cedula,Nombres,Apellido,Correo,Telefono,Programa");
+            
+            //Usamos el ResultSet resultado
+            while (resultado.next()){
+                int id=resultado.getInt("cedula");
+                String nombre=resultado.getString("nombre");
+                String apellido=resultado.getString("apellido");
+                String correo=resultado.getString("correo");
+                String telefono=resultado.getString("telefono");
+                String programa=resultado.getString("programa");
+                
+                String linea=id+","+nombre+","+apellido+","+correo+","+telefono+","+programa;
+                lapiz.newLine();
+                lapiz.write(linea);
+                
+            }
+            lapiz.close();
+            resultado.close();
+            stmt.close();           
+            
+            
+            System.out.println("Estudiante actualizado correctamente");
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("No se pudo actualizar el estudiante");
+            e.printStackTrace();
+        } catch (IOException e){
+            System.out.println("File Error");
+            e.printStackTrace();
+        }
+    
     
     }
 
