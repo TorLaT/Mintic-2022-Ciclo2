@@ -145,25 +145,33 @@ public class controlador implements ActionListener {
         buscar.getTxt_nombre().setText(null); // Ejemplo
         int id = Integer.parseInt(buscar.getTxt_cedula().getText());
         modelo resultado = bd.buscarEstudiante(id);
+        if (resultado!=null){
         buscar.getTxt_nombre().setText(resultado.getNombre());
         buscar.getTxt_apellido().setText(resultado.getApellido());
         buscar.getTxt_correo().setText(resultado.getCorreo());
         buscar.getTxt_telefono().setText(resultado.getTelefono());
         buscar.getTxt_programa().setText(resultado.getPrograma());
+        }else{
+        JOptionPane.showMessageDialog(buscar, "Estudiante no registrado","Not OK!",0);
+        }
     }
 
     public void mod_buscar() { ///If y un Else hint: if result==null
         int id = Integer.parseInt(modificar.getTxt_cedula().getText());
         modelo resultado = bd.buscarEstudiante(id);
+        if (resultado!=null){
         modificar.getTxt_nombre().setText(resultado.getNombre());
         modificar.getTxt_apellido().setText(resultado.getApellido());
         modificar.getTxt_correo().setText(resultado.getCorreo());
         modificar.getTxt_telefono().setText(resultado.getTelefono());
         modificar.getTxt_programa().setText(resultado.getPrograma());
+        }else{
+        JOptionPane.showMessageDialog(modificar, "Estudiante no registrado","Not OK!",0);
+        }
     }
 
     public void modificar() {
-        String id = modificar.getTxt_cedula().getText();
+        int id = Integer.parseInt(modificar.getTxt_cedula().getText());
         String nombre = modificar.getTxt_nombre().getText();
         String apellido = modificar.getTxt_apellido().getText();
         String correo = modificar.getTxt_correo().getText();
@@ -172,7 +180,7 @@ public class controlador implements ActionListener {
         if ("".equals(nombre) || "".equals(apellido)) {
             JOptionPane.showMessageDialog(modificar, "No hay datos para modificar", "Not OK!", 0);
         } else {
-            modelo newEst = new modelo(id, nombre, apellido, telefono, correo, programa);
+            modelo newEst = new modelo(Integer.toString(id), nombre, apellido, telefono, correo, programa);
             bd.modificarEst(id, newEst);
             JOptionPane.showMessageDialog(modificar, "Estudiante modificado correctamente", "All OK!", 0);
         }

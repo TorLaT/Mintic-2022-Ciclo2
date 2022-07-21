@@ -53,7 +53,6 @@ public class BaseDeDatos {
             System.out.println("No se pudo registrar el estudiante");
             e.printStackTrace();
         }
-
     }
 
     public modelo buscarEstudiante(int id) {
@@ -81,16 +80,25 @@ public class BaseDeDatos {
         return result;
     }
 
-    public void modificarEst(String id, modelo est) {
-        for (int i = 0; i < this.lstEstudiantes.size(); i++) {
-            if (this.lstEstudiantes.get(i).getId().equals(id)) {
-                this.lstEstudiantes.get(i).setNombre(est.getNombre());
-                this.lstEstudiantes.get(i).setApellido(est.getApellido());
-                this.lstEstudiantes.get(i).setCorreo(est.getCorreo());
-                this.lstEstudiantes.get(i).setTelefono(est.getTelefono());
-                this.lstEstudiantes.get(i).setPrograma(est.getPrograma());
-            }
+    public void modificarEst(int id, modelo est) {
+        try ( Connection conn = DriverManager.getConnection(URL, USER, CLAVE);  
+                Statement stmt = conn.createStatement();) {
+            //Actualizaciòn en la base de datos
+            String sql = "UPDATE estudiante SET nombre='"+est.getNombre()+"',apellido='"
+                    +est.getApellido()+"', correo='"+est.getCorreo()+"',telefono='"
+                    +est.getTelefono()+"',programa='"+est.getPrograma()
+                    +"' WHERE cedula="+id+";";
+            stmt.executeUpdate(sql);
+            System.out.println("Estudiante actualizado correctamente");
+            stmt.close();
+        } catch (SQLException e) {
+
+            System.out.println("No se pudo actualizar el estudiante");
+            e.printStackTrace();
         }
+        
+        
+        
     }
 
     public void eliminar(int id) {
