@@ -53,13 +53,6 @@ public class controlador implements ActionListener {
     }
 
     public void iniciar() throws ClassNotFoundException {
-        try {
-            //bd.recuperarArchivo();  //recuperando el dat
-            bd.leerCSV();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         menu.setVisible(true);
     }
 
@@ -94,8 +87,7 @@ public class controlador implements ActionListener {
         }
 
         if (e.getSource() == menu.getBtn_salir()) {
-            //bd.guardarArchivo(); //Guarda el archivo dat
-            bd.guardarCSV();// Guarda el csv
+
             System.exit(0);
         }
 
@@ -193,10 +185,13 @@ public class controlador implements ActionListener {
             bd.eliminar(id);
             JOptionPane.showMessageDialog(menu, "Registro Eliminado correctamente", "All OK!", 0);
         }
-
+        else{
+            JOptionPane.showMessageDialog(menu, "Estudiante no registrado", "Not OK!", 0);
+        }
     }
 
     public void listar() {
+        bd.SQLtoList();
         ArrayList<modelo> Estudiantes = bd.getLstEstudiantes(); //copia de la lista que hay en la base de datos
         ArrayList<Object[]> list = new ArrayList(); //Lista de apoyo
         for (int i = 0; i < Estudiantes.size(); i++) {
