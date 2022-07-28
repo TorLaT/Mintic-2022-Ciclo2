@@ -13,10 +13,12 @@ import java.util.ArrayList;
 public class BaseDeDatos {
 
     private ArrayList<modelo> lstEstudiantes; //unico atributo
-    public static final String URL = "jdbc:mysql://localhost:3306/ciclo2";
-    public static final String USER = "root";
-    public static final String CLAVE = "";
+    //Datos de la conexion
+    public static final String URL = "jdbc:mysql://misionti.mysql.database.azure.com:3306/ciclo2";
+    public static final String USER = "estudiante";
+    public static final String CLAVE = "mintic2022*";
 
+    
     public BaseDeDatos() {
         this.lstEstudiantes = new ArrayList(); //nueva lista vacia   
         try ( Connection conn = DriverManager.getConnection(URL, USER, CLAVE);  Statement stmt = conn.createStatement();) {
