@@ -18,7 +18,7 @@ public class Ahorcado {
         this.palabra=this.palabras[numRandom];
     }
     
-	//Este comentario es para ver si Git esta funcionando correctamente
+	//Este comentario es para ver si Git esta funcionando correctamente.
 	
     public static void adivinar(){
         
